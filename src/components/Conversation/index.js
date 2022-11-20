@@ -6,7 +6,7 @@
 /* eslint-disable prefer-destructuring */
 /* eslint-disable prefer-const */
 
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { BiSend } from "react-icons/bi";
 import { BsCamera } from "react-icons/bs";
@@ -43,16 +43,23 @@ const Conversation = () => {
       image: "",
     });
   
-  const sendNewMessage = () => {
+  const sendNewMessage = (event) => {
+    event.preventDefault();
     dispatch(
-              sendMessage({
-                conversationId,
-                sender: userId,
-                messageText: message.text,
-                messageImage: message.image,
-              })
-            )
-  }
+      sendMessage({
+        conversationId,
+        sender: userId,
+        messageText: message.text,
+        messageImage: message.image,
+      })
+    );
+  };
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollTo(0, messagesEndRef.current.scrollHeight);
+  };
+  useEffect(() => {
+    scrollToBottom();
+  }, []);
 
   return (
     <div className="discussion__main--container">
