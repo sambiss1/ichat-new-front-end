@@ -8,7 +8,7 @@ import { getAllRecentsMessages } from "../../store/features/recentsMessages/rece
 // import RecentsMessages from "../../components/RecentMessages";
 
 import RecentsMessages from "../../components/RecentsMessages";
-// import Conversation from "../../components/Conversation";
+import Conversation from "../../components/Conversation";
 import SearchBar from "../../components/SearchBar";
 import "./homepage.css";
 
@@ -20,6 +20,7 @@ const Home = () => {
 
     const recentsMessages = useSelector((state) => state.recentsMessages);
     
+    // const 
     
   return (
     <div className="home__page--container">
@@ -29,7 +30,7 @@ const Home = () => {
         <SearchBar />
         <RecentsMessages props={recentsMessages} />
       </div>
-      {/* <Conversation /> */}
+      <Conversation />
     </div>
   );
 };

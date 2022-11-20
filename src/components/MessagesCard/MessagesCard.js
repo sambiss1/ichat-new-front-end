@@ -9,8 +9,9 @@ import { useSelector, useDispatch } from "react-redux";
 // import { getContactPerson } from "../../store/features/contactPerson/contactPersonSlice";
 // import "./recentsMessages.css";
 
-// import { getContactPerson } from "../../store/features/contactPerson/contactPersonSlice";
 import { getContactPerson } from "../../store/features/contactPerson/contactPersonSlice";
+import {selectConversation} from "../../store/features/conversations/conversationSlice"
+
 const MessagesCard = ({ props }) => {
   const userId = localStorage.getItem("userID");
   const token = localStorage.getItem("token");
@@ -29,6 +30,8 @@ const MessagesCard = ({ props }) => {
       onClick={() => {
         // socket.emit("join", { userId, room });
 
+
+        dispatch(selectConversation(props._id));
         dispatch(
           getContactPerson(
             props.participants
