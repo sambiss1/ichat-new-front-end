@@ -86,7 +86,7 @@ const Conversation = () => {
                   return content.sender === userId ? (
                     <div className="from-me-container">
                       <div className="from-me" key={content._id}>
-                        {content.messageImage ? (
+                        {!content.messageImage ? (
                           <p></p>
                         ) : (
                           <img src={content.messageImage} alt="file sended" />
@@ -100,7 +100,7 @@ const Conversation = () => {
                   ) : (
                     <div className="from-them-container">
                       <div className="from-them" key={content._id}>
-                        {content.messageImage ? (
+                        {!content.messageImage ? (
                           <p></p>
                         ) : (
                           <img src={content.messageImage} alt="file sended" />
