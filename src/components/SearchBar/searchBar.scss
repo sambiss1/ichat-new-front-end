@@ -1,0 +1,32 @@
+@use "sass:map";
+@import "../../styles/variables";
+@import "../../styles/__breakpoints";
+
+.search__bar {
+  &--container {
+    background-color: $white_color;
+    border-radius: 15px;
+    margin: 0 0 2em;
+  }
+
+  &--form {
+    height: 50px;
+    // border: .1em solid red;
+    @include display_flex__simple;
+    align-items: center;
+    // justify-content: space-around;
+    padding: 0 1em;
+  }
+
+  &--icon {
+    font-size: 1.5em;
+    justify-self: flex-start;
+  }
+
+  &--input {
+    border: none;
+    width: 100%;
+    margin-left: 1em;
+    outline: none;
+  }
+}

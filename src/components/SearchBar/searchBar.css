@@ -1,0 +1,23 @@
+.search__bar--container {
+  background-color: #ffffff;
+  border-radius: 15px;
+  margin: 0 0 2em;
+}
+.search__bar--form {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  padding: 0 1em;
+}
+.search__bar--icon {
+  font-size: 1.5em;
+  justify-self: flex-start;
+}
+.search__bar--input {
+  border: none;
+  width: 100%;
+  margin-left: 1em;
+  outline: none;
+}
+
+/*# sourceMappingURL=searchBar.css.map */

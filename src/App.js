@@ -1,11 +1,10 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Home from "./pages/Home";
 import LoginPage from "./pages/Login";
-import SignupPage from "./pages/Signup";
+import SignUpPage from "./pages/SignUp";
 import UsersPage from "./pages/Users";
 import NotFound from "./pages/NotFound";
 
-import logo from "./logo.svg";
 import "./App.css";
 
 const App = () => {

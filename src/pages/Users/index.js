@@ -1,17 +1,23 @@
-import Conversation from "../../components/Conversation";
+// import Conversation from "../../components/Conversation";
 import SearchBar from "../../components/SearchBar";
-import SideBar from "../../components/SideBar";
-import UserList from "../../components/UserList";
+// import SideBar from "../../components/SideBar";
+// import SideBar from "../../components/SideBar";
+
+import SideBar from "../../components/Sidebar";
+
+
+// import UserList from "../../components/UserList";
 
 const UsersPage = () => {
   return (
     <div className="home__page--container">
       <SideBar />
       <div>
+        
         <SearchBar />
-        <UserList />
+        {/* <UserList /> */}
       </div>
-      <Conversation />
+      {/* <Conversation /> */}
     </div>
   );
 };

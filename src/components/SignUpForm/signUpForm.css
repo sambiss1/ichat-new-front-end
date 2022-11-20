@@ -1,0 +1,33 @@
+.signup__form--container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.signup__form--firstname__input,
+.signup__form--lastname__input,
+.signup__form--username__input,
+.signup__form--email__input,
+.signup__form--password__input {
+  border: none;
+  border-bottom: 0.1em solid #cecece;
+  margin-bottom: 0.5em;
+  padding: 0.5em 0;
+  outline: none;
+  font-size: 1em;
+}
+.signup__form--submit__button {
+  background-color: #5600ff;
+  border: 0.1em solid #5600ff;
+  color: #ffffff;
+  padding: 0.5em 3em;
+  margin: 0 0 2em;
+  font-size: 1.2em;
+  transition: all 0.3s ease;
+}
+.signup__form--submit__button:hover {
+  cursor: pointer;
+  color: #5600ff;
+  background-color: #ffffff;
+}
+
+/*# sourceMappingURL=signUpForm.css.map */

@@ -1,0 +1,56 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.nav__bar--container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.nav__bar--menu {
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding-left: 30%;
+}
+.nav__bar--item {
+  width: 100%;
+  background-color: #4b00e5;
+  border-right: 0.4em solid #4b00e5;
+  align-self: flex-end;
+  border-radius: 10px 0 0 10px;
+  padding: 0.5em 0;
+  color: #ffffff;
+  margin: 0.5em 0;
+}
+.nav__bar--item .nav__bar--icon {
+  color: #ffffff;
+  font-size: 1.5em;
+}
+
+a {
+  text-decoration: none !important;
+}
+
+a:visited {
+  text-decoration: none !important;
+}
+
+.isActive {
+  width: 100%;
+  border-right: 0.4em solid yellow;
+  background-color: #4b00e5;
+  align-self: flex-end;
+  border-radius: 10px 0 0 10px;
+  padding: 0.5em 0;
+  margin: 0.5em 0;
+}
+.isActive .nav__bar--icon {
+  color: #ffffff;
+  font-size: 1.5em;
+}
+
+/*# sourceMappingURL=navbar.css.map */

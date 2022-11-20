@@ -1,7 +1,9 @@
-import SideBar from "../../components/SideBar";
+
+import SideBar from "../../components/Sidebar";
+
 // import RecentsMessages from "../../components/RecentMessages";
 // import Conversation from "../../components/Conversation";
-// import SearchBar from "../../components/SearchBar";
+import SearchBar from "../../components/SearchBar";
 import "./homepage.css";
 
 const Home = () => {
@@ -9,8 +11,8 @@ const Home = () => {
     <div className="home__page--container">
       <SideBar />
       <div>
-        <p>Component</p>
-        {/* <SearchBar /> */}
+        {/* <p>Component</p> */}
+        <SearchBar />
         {/* <RecentsMessages /> */}
       </div>
       {/* <Conversation /> */}
