@@ -6,14 +6,17 @@
 /* eslint-disable prefer-destructuring */
 /* eslint-disable prefer-const */
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { BiSend } from "react-icons/bi";
 import { BsCamera } from "react-icons/bs";
+import { useDispatch} from "react-redux"
 // import axios from "axios";
 // import Popup from "reactjs-popup";
 import moment from "moment";
 // import {AdvancedImage} from "@cloudinary/react";
+
+import {sendMessage} from "../../store/features/messages/messageSlice"
 
 // import {Cloudinary} from "@cloudinary/url-gen"
 // import "reactjs-popup/dist/index.css";
@@ -29,8 +32,27 @@ const Conversation = () => {
   const selectedConversation = useSelector(
     (state) => state.conversation.selectedConversation
   );
+  const  conversationId = useSelector((state) => state.conversation.id)
+
 
   const messages = useSelector((state) => state.conversation.messages);
+
+  const dispatch = useDispatch();
+    const [message, setMessage] = useState({
+      text: "",
+      image: "",
+    });
+  
+  const sendNewMessage = () => {
+    dispatch(
+              sendMessage({
+                conversationId,
+                sender: userId,
+                messageText: message.text,
+                messageImage: message.image,
+              })
+            )
+  }
 
   return (
     <div className="discussion__main--container">
@@ -89,18 +111,18 @@ const Conversation = () => {
           </div>
 
           <form
-            // onSubmit={ sendMessage }
+            onSubmit={sendNewMessage}
             className="send__message--form"
           >
             <div className="send__message--content">
               <input
                 type="text"
-                // onChange={(event) => {
-                //   return setMessage({
-                //     text: event.target.value,
-                //     image: message.image,
-                //   });
-                // }}
+                onChange={(event) => {
+                  return setMessage({
+                    text: event.target.value,
+                    image: message.image,
+                  });
+                }}
                 className="send__message--text"
                 placeholder="Type message here"
               />
