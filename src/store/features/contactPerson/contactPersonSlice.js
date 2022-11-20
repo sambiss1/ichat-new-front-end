@@ -9,7 +9,7 @@ export const contactPersonSlice = createSlice({
   initialState: {},
   reducers: {
     getContactPerson: (state, action) => {
-     return {...state, ...action.payload}
+      return { ...state, ...action.payload };
     },
   },
 });

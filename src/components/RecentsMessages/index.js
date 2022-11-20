@@ -11,25 +11,25 @@ import { getAllRecentsMessages } from "../../store/features/recentsMessages/rece
 
 import "./recentsMessages.css";
 
-const RecentsMessages = ( {props}) => {
-//   const { socket } = useContext(UserContext);
+const RecentsMessages = ({ props }) => {
+  //   const { socket } = useContext(UserContext);
 
   const token = `${localStorage.getItem("token")}`;
   const userId = localStorage.getItem("userID");
-//   const recentMessages = useSelector((state) =>
-//     console.log(state.recentsMessages)
-//   );
+  //   const recentMessages = useSelector((state) =>
+  //     console.log(state.recentsMessages)
+  //   );
 
-//   const dispatch = useDispatch();
-//   useEffect(() => {
-//     dispatch(getAllRecentsMessages());
+  //   const dispatch = useDispatch();
+  //   useEffect(() => {
+  //     dispatch(getAllRecentsMessages());
 
-//     socket.on("receive-message", (data) => {
-//       dispatch(getAllRecentsMessages(data));
-//     });
-//   }, []);
+  //     socket.on("receive-message", (data) => {
+  //       dispatch(getAllRecentsMessages(data));
+  //     });
+  //   }, []);
 
-//   console.log(recentMessages);
+  //   console.log(recentMessages);
   return (
     <div className="recent__message--main__container">
       <h3>Recent</h3>

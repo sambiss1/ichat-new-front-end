@@ -12,15 +12,25 @@ export const conversationSlice = createSlice({
   selectedConversation: false,
   reducers: {
     getSelectedConversation: (state, action) => {
-      return { ...state, id: action.payload };
+      return { ...state };
     },
     selectConversation: (state, action) => {
-      return { ...state, selectedConversation: true };
+      return {
+        ...state,
+        id: action.payload,
+        selectedConversation: true,
+      };
+    },
+    getMessages: (state, action) => {
+      return {
+        ...state,
+        messages: action.payload,
+      };
     },
   },
 });
 
-export const { getSelectedConversation, selectConversation } =
+export const { getSelectedConversation, selectConversation, getMessages } =
   conversationSlice.actions;
 
 export default conversationSlice;

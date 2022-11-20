@@ -9,7 +9,7 @@ const SearchBar = () => {
         <input
           type="seach"
           placeholder="Search"
-          className="search__bar--input" 
+          className="search__bar--input"
         />
       </form>
     </div>

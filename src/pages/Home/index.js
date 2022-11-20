@@ -18,10 +18,10 @@ const Home = () => {
     dispatch(getAllRecentsMessages());
   }, [dispatch]);
 
-    const recentsMessages = useSelector((state) => state.recentsMessages);
-    
-    // const 
-    
+  const recentsMessages = useSelector((state) => state.recentsMessages);
+
+  // const
+
   return (
     <div className="home__page--container">
       <SideBar />

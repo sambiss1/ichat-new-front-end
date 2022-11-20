@@ -5,7 +5,6 @@ import SearchBar from "../../components/SearchBar";
 
 import SideBar from "../../components/Sidebar";
 
-
 // import UserList from "../../components/UserList";
 
 const UsersPage = () => {
@@ -13,7 +12,6 @@ const UsersPage = () => {
     <div className="home__page--container">
       <SideBar />
       <div>
-        
         <SearchBar />
         {/* <UserList /> */}
       </div>

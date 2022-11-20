@@ -8,7 +8,6 @@ import axios from "axios";
 const userId = localStorage.getItem("userID");
 const token = localStorage.getItem("token");
 
-
 export const getAllRecentsMessages = createAsyncThunk(
   "recentsMessages/getAllRecentsMessages",
   async () => {

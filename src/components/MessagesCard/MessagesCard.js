@@ -10,7 +10,10 @@ import { useSelector, useDispatch } from "react-redux";
 // import "./recentsMessages.css";
 
 import { getContactPerson } from "../../store/features/contactPerson/contactPersonSlice";
-import {selectConversation} from "../../store/features/conversations/conversationSlice"
+import {
+  selectConversation,
+  getMessages,
+} from "../../store/features/conversations/conversationSlice";
 
 const MessagesCard = ({ props }) => {
   const userId = localStorage.getItem("userID");
@@ -22,16 +25,15 @@ const MessagesCard = ({ props }) => {
 
   const contactPerson = useSelector((state) => state.contactPerson);
 
-  // console.log(contactPerson);
-
   return (
     <div
       className="recent__message--card"
       onClick={() => {
         // socket.emit("join", { userId, room });
 
-
+        // console.log(props.messages);
         dispatch(selectConversation(props._id));
+        dispatch(getMessages(props.messages));
         dispatch(
           getContactPerson(
             props.participants
