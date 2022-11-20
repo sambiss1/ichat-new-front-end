@@ -10,21 +10,18 @@ import { useSelector, useDispatch } from "react-redux";
 // import "./recentsMessages.css";
 
 // import { getContactPerson } from "../../store/features/contactPerson/contactPersonSlice";
-import { getContactPerson } from "../store/features/contactPerson/contactPersonSlice";
+import { getContactPerson } from "../../store/features/contactPerson/contactPersonSlice";
 const MessagesCard = ({ props }) => {
   const userId = localStorage.getItem("userID");
   const token = localStorage.getItem("token");
 
   //   const room = conversationId;
-    
-    
 
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-    const contactPerson = useSelector((state) => state.contactPerson);
+  const contactPerson = useSelector((state) => state.contactPerson);
 
-    // console.log(contactPerson);
-
+  // console.log(contactPerson);
 
   return (
     <div
@@ -32,11 +29,13 @@ const MessagesCard = ({ props }) => {
       onClick={() => {
         // socket.emit("join", { userId, room });
 
-
-       
-        dispatch(getContactPerson(props.participants
-          .filter((participant) => participant._id !== userId)
-          .map((user) => user)[0]));
+        dispatch(
+          getContactPerson(
+            props.participants
+              .filter((participant) => participant._id !== userId)
+              .map((user) => user)[0]
+          )
+        );
       }}
     >
       <div className="recent__message--user__picture">

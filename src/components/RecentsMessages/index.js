@@ -5,7 +5,7 @@
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 
-import MessagesCard from "../MessagesCard";
+import MessagesCard from "../MessagesCard/MessagesCard";
 import { getAllRecentsMessages } from "../../store/features/recentsMessages/recentsMessagesSlice";
 // import { getContactPerson } from "../../store/features/contactPerson/contactPersonSlice";
 
