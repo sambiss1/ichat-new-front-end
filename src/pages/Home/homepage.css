@@ -1,0 +1,9 @@
+.home__page--container {
+  display: grid;
+  grid-template-columns: 15% 30% 50%;
+  grid-gap: 20px;
+  padding: 5vh 2%;
+  background-color: #cecece;
+}
+
+/*# sourceMappingURL=homepage.css.map */
