@@ -1,25 +1,66 @@
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import Home from "./pages/Home";
+import LoginPage from "./pages/Login";
+import SignupPage from "./pages/Signup";
+import UsersPage from "./pages/Users";
+import NotFound from "./pages/NotFound";
+
 import logo from "./logo.svg";
 import "./App.css";
 
-const App =() =>  {
+const App = () => {
+  const actualToken = localStorage.getItem("token");
+  const auth = localStorage.getItem("auth");
+  <BrowserRouter>
+        <Routes>
+          {!actualToken && !auth ? (
+            <>
+              <Route index path="/" element={<LoginPage />} />
+              <Route
+                path="/*"
+                element={
+                  actualToken ? <NotFound /> : <Navigate replace to="/" />
+                }
+              />
+              <Route path="/signup" element={<SignUpPage />} />
+            </>
+          ) : (
+            <>
+              <Route index element={<Home />} />
+              <Route path="/*" element={<NotFound />} />
+              <Route path="/signup" element={<SignUpPage />} />
+              <Route path="/user" element={<UsersPage />} />
+            </>
+          )}
+        </Routes>
+      </BrowserRouter>
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <BrowserRouter>
+        <Routes>
+          {!actualToken && !auth ? (
+            <>
+              <Route index path="/" element={<LoginPage />} />
+              <Route
+                path="/*"
+                element={
+                  actualToken ? <NotFound /> : <Navigate replace to="/" />
+                }
+              />
+              <Route path="/signup" element={<SignUpPage />} />
+            </>
+          ) : (
+            <>
+              <Route index element={<Home />} />
+              <Route path="/*" element={<NotFound />} />
+              <Route path="/signup" element={<SignUpPage />} />
+              <Route path="/user" element={<UsersPage />} />
+            </>
+          )}
+        </Routes>
+      </BrowserRouter>
     </div>
   );
-}
+};
 
 export default App;
