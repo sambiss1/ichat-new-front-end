@@ -20,7 +20,7 @@ export const getAllRecentsMessages = createAsyncThunk(
         Authorization: `${token}`,
       },
     })
-      .then((response) => response.data)
+      .then((response) => response.data.conversations)
 
       .catch((error) => error);
   }

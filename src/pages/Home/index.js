@@ -6,6 +6,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { getAllRecentsMessages } from "../../store/features/recentsMessages/recentsMessagesSlice";
 
 // import RecentsMessages from "../../components/RecentMessages";
+
+import RecentsMessages from "../../components/RecentsMessages";
 // import Conversation from "../../components/Conversation";
 import SearchBar from "../../components/SearchBar";
 import "./homepage.css";
@@ -18,14 +20,14 @@ const Home = () => {
 
     const recentsMessages = useSelector((state) => state.recentsMessages);
     
-    console.log(recentsMessages);
+    
   return (
     <div className="home__page--container">
       <SideBar />
       <div>
         {/* <p>Component</p> */}
         <SearchBar />
-        {/* <RecentsMessages /> */}
+        <RecentsMessages props={recentsMessages} />
       </div>
       {/* <Conversation /> */}
     </div>
