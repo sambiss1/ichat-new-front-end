@@ -1,0 +1,33 @@
+@use "sass:map";
+@import "../../styles/variables";
+@import "../../styles/__breakpoints";
+.login__form {
+  &--container {
+    @include display_flex__column;
+    align-items: flex-start;
+    justify-content: space-evenly;
+  }
+  &--username__input,
+  &--password__input {
+    border: none;
+    border-bottom: 0.1em solid $secondary_color;
+    margin-bottom: 1.5em;
+    padding: 1em 0;
+    outline: none;
+    font-size: 1.2em;
+  }
+  &--submit__button {
+    background-color: $primary_color;
+    border: 0.1em solid $primary_color;
+    color: $white_color;
+    padding: 0.5em 3em;
+    margin: 0 0 2em;
+    font-size: 1.2em;
+    transition: all 0.3s ease;
+    &:hover {
+      cursor: pointer;
+      color: $primary_color;
+      background-color: $white_color;
+    }
+  }
+}
