@@ -3,19 +3,28 @@
 /* eslint-disable consistent-return */
 /* eslint-disable no-unused-vars */
 // import { useEffect } from "react";
-// import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 // import { getAllRecentsMessages } from "../../store/features/recentsMessages/recentsMessagesSlice";
 // import { getContactPerson } from "../../store/features/contactPerson/contactPersonSlice";
 // import "./recentsMessages.css";
 
+// import { getContactPerson } from "../../store/features/contactPerson/contactPersonSlice";
+import { getContactPerson } from "../store/features/contactPerson/contactPersonSlice";
 const MessagesCard = ({ props }) => {
   const userId = localStorage.getItem("userID");
   const token = localStorage.getItem("token");
 
   //   const room = conversationId;
+    
+    
 
-  // const dispatch = useDispatch();
+    const dispatch = useDispatch();
+
+    const contactPerson = useSelector((state) => state.contactPerson);
+
+    // console.log(contactPerson);
+
 
   return (
     <div
@@ -23,32 +32,11 @@ const MessagesCard = ({ props }) => {
       onClick={() => {
         // socket.emit("join", { userId, room });
 
-        // getThisConversation(props._id);
-          console.log(
-            
-          props.participants
-            .filter((participant) => participant._id !== userId)
-            .map(
-                (user) => user
-                    
-                    // ._id + " " + user.firstName + " " + user.lastName
-            )[0]
-            // .join("")
-            // .toString()
-        );
 
-        // dispatch(
-        //   getContactPerson(
-        //     props.participants
-        //       .filter((participant) => participant._id !== userId)
-        //       .map((user) => user._id)
-        //       .join("")
-        //       .toString()
-        //   )
-        // );
-        // getContactPerson();
-        // getAConversation();
-        // setSelectedConversation(true);
+       
+        dispatch(getContactPerson(props.participants
+          .filter((participant) => participant._id !== userId)
+          .map((user) => user)[0]));
       }}
     >
       <div className="recent__message--user__picture">

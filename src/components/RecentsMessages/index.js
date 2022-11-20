@@ -16,9 +16,9 @@ const RecentsMessages = ( {props}) => {
 
   const token = `${localStorage.getItem("token")}`;
   const userId = localStorage.getItem("userID");
-  const recentMessages = useSelector((state) =>
-    console.log(state.recentsMessages)
-  );
+//   const recentMessages = useSelector((state) =>
+//     console.log(state.recentsMessages)
+//   );
 
 //   const dispatch = useDispatch();
 //   useEffect(() => {
