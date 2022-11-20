@@ -1,0 +1,86 @@
+// Color
+$primary_color: #5600ff;
+$secondary_color: #cecece;
+$active_color: #4b00e5;
+$white_color: #ffffff;
+$black_color: #000000;
+$box_shadow_color: #c4c4c4;
+$black_man_color: #b78876; 
+
+// Font
+
+// desktoop font size
+$menu__font__size: 1em;
+$text_font__size: 0.8em;
+$name_font__size: 3em;
+$presentation_text_font__size: 1.2em;
+$section_title_font__size: 1.8em;
+$card_title_font__size: 1.2em;
+
+// Mobile font-size
+$mobile_section_title_font__size: 1.2em;
+// Page settings
+$page_main_padding: 5%;
+
+// $padding: 2%;
+
+// Alignment
+@mixin display_flex__simple {
+  display: flex;
+}
+
+@mixin display_flex__column {
+  display: flex;
+  flex-direction: column;
+}
+
+@mixin display_flex__space__between {
+  justify-content: space-between;
+}
+
+@mixin display_flex__centeredItem {
+  justify-content: center;
+  align-items: center;
+}
+
+// Fixed item
+@mixin fixedItem {
+  top: 0;
+  position: absolute;
+}
+
+// Image size
+@mixin imageSize {
+  width: 100%;
+  height: 100%;
+}
+
+// Box shadow
+
+@mixin main_box_shadow {
+  box-shadow: 4px 4px 4px 0 rgba(196, 196, 196, 0.25);
+}
+
+// Section
+$section_top_padding: 3.2em;
+$section_left_padding: 1.2em;
+$section_margin: 2.4em;
+
+// Buttons
+$button_padding: 0.5em;
+
+// Desktop button
+@mixin desktop__button {
+  background-color: $primary_color;
+  color: $white_color;
+  font-size: $presentation_text_font__size;
+  border: none;
+  height: 40px;
+  font-size: 1.2em;
+  font-size: 600;
+  width: 200px;
+}
+
+// Mobile button
+@mixin mobile__button {
+}
