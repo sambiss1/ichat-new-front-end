@@ -4,6 +4,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import {socket} from "../../socket"
 import "./loginForm.css";
 
 const LoginForm = () => {
@@ -27,7 +28,7 @@ const LoginForm = () => {
         window.localStorage.setItem("token", response.data.token);
         window.localStorage.setItem("userID", response.data.payload.id);
         window.localStorage.setItem("auth", true);
-        // socket.emit("login", { username });
+        socket.emit("login", { username });
       })
       .catch((error) => console.error(error));
   };

@@ -53,6 +53,7 @@ const Conversation = () => {
         messageImage: message.image,
       })
     );
+    event.target.reset();
   };
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollTo(0, messagesEndRef.current.scrollHeight);
@@ -60,6 +61,8 @@ const Conversation = () => {
   useEffect(() => {
     scrollToBottom();
   }, []);
+
+  const isSending = useSelector((state) => state.messages.isSending);
 
   return (
     <div className="discussion__main--container">
@@ -117,10 +120,7 @@ const Conversation = () => {
             )}
           </div>
 
-          <form
-            onSubmit={sendNewMessage}
-            className="send__message--form"
-          >
+          <form onSubmit={sendNewMessage} className="send__message--form">
             <div className="send__message--content">
               <input
                 type="text"
@@ -148,15 +148,15 @@ const Conversation = () => {
               </div>
             </div>
             <button type="submit" className="send__message--button">
-              {/* {sendingMessage ? (
+              {isSending ? (
                 <div className="lds-ring">
                   <div></div>
                   <div></div>
                   <div></div>
                 </div>
-              ) : ( */}
+              ) : (
               <BiSend />
-              {/* )} */}
+               )} 
             </button>
           </form>
         </div>
