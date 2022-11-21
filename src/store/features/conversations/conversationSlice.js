@@ -12,22 +12,24 @@ const token = localStorage.getItem("token");
 
 // const contactPersonId = useSelector((state) => state.contactPerson._id);
 
-export const getAConversation = createAsyncThunk(
-  "conversation/getAConversation",
-  async ({ rejectWithValue, getState }) => {
-    const contactPersonId = getState().contactPerson._id;
-    return axios({
-      method: "GET",
-      url: `http://localhost:8000/api/conversations/${userId}/${contactPersonId}`,
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `${token}`,
-      },
-    })
-      .then((response) => response.data.conversations.messages)
-      .catch((error) => rejectWithValue("Opps there seems to be an error"));
-  }
-);
+// export const getAConversation = createAsyncThunk(
+//   "conversation/getAConversation",
+//   async ({ rejectWithValue, getState }) => {
+//     const contactPersonId = getState().contactPerson._id;
+
+//     console.log(contactPersonId);
+//     return axios({
+//       method: "GET",
+//       url: `http://localhost:8000/api/conversations/${userId}/${contactPersonId}`,
+//       headers: {
+//         "Content-Type": "application/json",
+//         Authorization: `${token}`,
+//       },
+//     })
+//       .then((response) => response.data.conversations.messages)
+//       .catch((error) => rejectWithValue("Opps there seems to be an error"));
+//   }
+// );
 
 export const conversationSlice = createSlice({
   name: "conversation",
@@ -65,26 +67,6 @@ export const conversationSlice = createSlice({
       return state.messages;
     },
   },
-  extraReducers: {
-    [getAConversation.pending]: (state, action) => {
-      state.isLoading = true;
-    },
-    [getAConversation.fulfilled]: (state, action) => {
-      // state.isLoading = false;
-      // state.messages = action.payload;
-
-      console.log(action.payload);
-      return (state = {
-        ...state,
-        isLoading: false,
-        messages: action.payload,
-      });
-    },
-    [getAConversation.rejected]: (state, action) => {
-      state.isLoading = false;
-      state.error = action.payload;
-    },
-  },
 });
 
 export const {
@@ -94,5 +76,27 @@ export const {
   getAllMessages,
   getThisContactPerson,
 } = conversationSlice.actions;
+
+// ,
+//   extraReducers: {
+//     [getAConversation.pending]: (state, action) => {
+//       state.isLoading = true;
+//     },
+//     [getAConversation.fulfilled]: (state, action) => {
+// state.isLoading = false;
+// state.messages = action.payload;
+
+//       console.log(action.payload);
+//       return (state = {
+//         ...state,
+//         isLoading: false,
+//         messages: action.payload,
+//       });
+//     },
+//     [getAConversation.rejected]: (state, action) => {
+//       state.isLoading = false;
+//       state.error = action.payload;
+//     },
+//   },
 
 export default conversationSlice;

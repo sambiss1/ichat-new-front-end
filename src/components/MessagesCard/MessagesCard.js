@@ -12,7 +12,7 @@ import { getContactPerson } from "../../store/features/contactPerson/contactPers
 import {
   selectConversation,
   getMessages,
-  getAConversation,
+  // getAConversation,
   getThisContactPerson,
 } from "../../store/features/conversations/conversationSlice";
 
@@ -51,7 +51,6 @@ const MessagesCard = ({ props }) => {
           )
         );
 
-        dispatch(getAConversation());
         dispatch(
           getContactPerson(
             props.participants

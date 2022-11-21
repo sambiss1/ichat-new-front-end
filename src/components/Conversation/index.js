@@ -52,8 +52,6 @@ const Conversation = () => {
 
   const room = conversationId;
 
-  const newMessage = useSelector((state) => state.messages.data);
-
   const getConversationMessages = async () => {
     await axios({
       method: "GET",
@@ -64,7 +62,7 @@ const Conversation = () => {
       },
     })
       .then((response) => {
-        dispatch(getMessages(response.data.conversations.messages));
+        dispatch(getMessages(response.data.conversations[0].messages));
       })
       .catch((error) => {
         return alert(error);
@@ -83,6 +81,8 @@ const Conversation = () => {
       })
     );
 
+    getConversationMessages();
+
     socket.emit("send-message", {
       conversationId,
       sender: userId,
@@ -90,35 +90,27 @@ const Conversation = () => {
       messageImage: message.image,
     });
 
-    dispatch(getNewMessageTest());
-
     event.target.reset();
   };
+
+  const newMessage = useSelector((state) => state.messages.data);
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollTo(0, messagesEndRef.current.scrollHeight);
   };
-  
+
   const messages = useSelector((state) => state.conversation.messages);
+
   useEffect(() => {
+    getConversationMessages();
+
     socket.on("receive-message", (content) => {
-      dispatch(getAConversation());
-      dispatch(
-        getNewMessages({
-          conversationId: content.conversationId,
-          sender: content.sender,
-          messageText: content.messageText,
-          messageImage: content.messageImage,
-        })
-      );
-      dispatch(getAllMessages());
-      // getConversationMessages();
+      dispatch(getMessages(newMessage));
     });
 
     scrollToBottom();
-  }, [socket, messages]);
+  }, [socket, messages, newMessage]);
 
   const isSending = useSelector((state) => state.messages.isSending);
-
 
   return (
     <div className="discussion__main--container">
