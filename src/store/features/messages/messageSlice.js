@@ -22,11 +22,7 @@ export const sendMessage = createAsyncThunk(
     })
       .then((response) => response.data.newMessage.messages)
 
-      .catch(
-        (error) =>
-          rejectWithValue("Opps there seems to be an error")
-      
-    );
+      .catch((error) => rejectWithValue("Opps there seems to be an error"));
   }
 );
 
@@ -37,8 +33,11 @@ export const messageSlice = createSlice({
     isSending: false,
     error: null,
   },
-  reducer: {
+  reducers: {
     getNewMessages: (state, action) => {
+      return { ...state, data: action.payload };
+    },
+    getNewMessageTest: (state, action) => {
       return state.data;
     },
   },
@@ -47,8 +46,11 @@ export const messageSlice = createSlice({
       state.isSending = true;
     },
     [sendMessage.fulfilled]: (state, action) => {
-      state.isSending = false;
-      state.data = action.payload;
+      return (state = {
+        ...state,
+        isSending: false,
+        data: action.payload,
+      });
     },
     [sendMessage.rejected]: (state, action) => {
       state.isSending = false;
@@ -57,6 +59,6 @@ export const messageSlice = createSlice({
   },
 });
 
-export const { getNewMessages } = messageSlice.actions;
+export const { getNewMessages, getNewMessageTest } = messageSlice.actions;
 
 export default messageSlice;

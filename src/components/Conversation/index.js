@@ -5,46 +5,75 @@
 /* eslint-disable react/self-closing-comp */
 /* eslint-disable prefer-destructuring */
 /* eslint-disable prefer-const */
+/* eslint-disable no-unused-vars */
 
 import { useRef, useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { BiSend } from "react-icons/bi";
 import { BsCamera } from "react-icons/bs";
-import { useDispatch} from "react-redux"
-// import axios from "axios";
-// import Popup from "reactjs-popup";
+import axios from "axios";
+
 import moment from "moment";
-// import {AdvancedImage} from "@cloudinary/react";
 
-import {sendMessage} from "../../store/features/messages/messageSlice"
+import {
+  getAllMessages,
+  getAConversation,
+  getMessages,
+} from "../../store/features/conversations/conversationSlice";
+import { socket } from "../../socket";
 
-// import {Cloudinary} from "@cloudinary/url-gen"
-// import "reactjs-popup/dist/index.css";
+import {
+  sendMessage,
+  getNewMessages,
+  getNewMessageTest,
+} from "../../store/features/messages/messageSlice";
+
 import "./conversations.css";
 
 const Conversation = () => {
+  const [message, setMessage] = useState({
+    text: "",
+    image: "",
+  });
   const messagesEndRef = useRef(null);
-
   const userId = localStorage.getItem("userID");
-  // const token = localStorage.getItem("token");
+  const token = localStorage.getItem("token");
+
+  const dispatch = useDispatch();
+
   const contactPerson = useSelector((state) => state.contactPerson);
 
   const selectedConversation = useSelector(
     (state) => state.conversation.selectedConversation
   );
-  const  conversationId = useSelector((state) => state.conversation.id)
+  const conversationId = useSelector((state) => state.conversation.id);
 
+  const thisContact = useSelector((state) => state.contactPerson._id);
 
-  const messages = useSelector((state) => state.conversation.messages);
+  const room = conversationId;
 
-  const dispatch = useDispatch();
-    const [message, setMessage] = useState({
-      text: "",
-      image: "",
-    });
-  
+  const newMessage = useSelector((state) => state.messages.data);
+
+  const getConversationMessages = async () => {
+    await axios({
+      method: "GET",
+      url: `http://localhost:8000/api/conversations/${userId}/${thisContact}`,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `${token}`,
+      },
+    })
+      .then((response) => {
+        dispatch(getMessages(response.data.conversations.messages));
+      })
+      .catch((error) => {
+        return alert(error);
+      });
+  };
+
   const sendNewMessage = (event) => {
     event.preventDefault();
+
     dispatch(
       sendMessage({
         conversationId,
@@ -53,16 +82,43 @@ const Conversation = () => {
         messageImage: message.image,
       })
     );
+
+    socket.emit("send-message", {
+      conversationId,
+      sender: userId,
+      messageText: message.text,
+      messageImage: message.image,
+    });
+
+    dispatch(getNewMessageTest());
+
     event.target.reset();
   };
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollTo(0, messagesEndRef.current.scrollHeight);
   };
+  
+  const messages = useSelector((state) => state.conversation.messages);
   useEffect(() => {
+    socket.on("receive-message", (content) => {
+      dispatch(getAConversation());
+      dispatch(
+        getNewMessages({
+          conversationId: content.conversationId,
+          sender: content.sender,
+          messageText: content.messageText,
+          messageImage: content.messageImage,
+        })
+      );
+      dispatch(getAllMessages());
+      // getConversationMessages();
+    });
+
     scrollToBottom();
-  }, []);
+  }, [socket, messages]);
 
   const isSending = useSelector((state) => state.messages.isSending);
+
 
   return (
     <div className="discussion__main--container">
@@ -155,8 +211,8 @@ const Conversation = () => {
                   <div></div>
                 </div>
               ) : (
-              <BiSend />
-               )} 
+                <BiSend />
+              )}
             </button>
           </form>
         </div>

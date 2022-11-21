@@ -6,7 +6,7 @@ import { conversationSlice } from "./features/conversations/conversationSlice";
 
 import { contactPersonSlice } from "./features/contactPerson/contactPersonSlice";
 // import { socketSlice } from "./features/socket/socketSlice";
-import {messageSlice} from "./features/messages/messageSlice";
+import { messageSlice } from "./features/messages/messageSlice";
 
 export const store = configureStore({
   reducer: {
