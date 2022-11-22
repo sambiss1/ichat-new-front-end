@@ -2,7 +2,7 @@
 /* eslint-disable arrow-body-style */
 /* eslint-disable object-shorthand */
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { socket } from "../../socket";
 import "./loginForm.css";
@@ -28,13 +28,18 @@ const LoginForm = () => {
         window.localStorage.setItem("token", response.data.token);
         window.localStorage.setItem("userID", response.data.payload.id);
         window.localStorage.setItem("auth", true);
-        navigate("/", { replace: true });
         socket.emit("login", { username });
 
-          socket.on("online", () => {
-            userStatus = true;
-            console.log(userStatus);
-          });
+        window.localStorage.getItem("auth");
+
+        navigate("/", { replace: true });
+
+        <Navigate replace to="/" />;
+
+        socket.on("online", () => {
+          userStatus = true;
+          console.log(userStatus);
+        });
       })
       .catch((error) => console.error(error));
   };

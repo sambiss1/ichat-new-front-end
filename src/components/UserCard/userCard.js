@@ -12,7 +12,7 @@ const UserCard = ({ props}) => {
         <img src="/images/user.png" alt="profile pictur" />
       </div>
       <div className="user__list--user__message">
-        <h3> {props.userName}</h3>
+        <h3> {props.firstName} {props.lastName}</h3>
       </div>
     </div>
   );

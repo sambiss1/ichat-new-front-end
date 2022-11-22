@@ -1,4 +1,5 @@
 import { MdLogout } from "react-icons/md";
+import { Navigate } from "react-router-dom";
 import NavBar from "../NavBar";
 import "./sidebar.css";
 
@@ -14,6 +15,8 @@ const SideBar = () => {
           onClick={() => {
             window.localStorage.clear();
             window.location("/");
+
+            <Navigate replace to="/" />;
           }}
         />
       </div>

@@ -72,7 +72,7 @@ const MessagesCard = ({ props }) => {
           ? props.participants.map(
               (member) =>
                 member._id !== userId && (
-                  <h3 key={member._id}> {member.userName}</h3>
+                  <h3 key={member._id}> {member.firstName} {member.lastName}</h3>
                 )
             )
           : ""}

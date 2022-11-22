@@ -28,6 +28,8 @@ import {
   getNewMessageTest,
 } from "../../store/features/messages/messageSlice";
 
+import { getAllRecentsMessages } from "../../store/features/recentsMessages/recentsMessagesSlice";
+
 import "./conversations.css";
 
 const Conversation = () => {
@@ -83,14 +85,15 @@ const Conversation = () => {
       })
     );
 
-    getConversationMessages();
-
     socket.emit("send-message", {
       conversationId,
       sender: userId,
       messageText: message.text,
       messageImage: message.image,
     });
+
+    getConversationMessages();
+    dispatch(getAllRecentsMessages());
 
     event.target.reset();
   };

@@ -8,8 +8,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { getAllUsers } from "../../store/features/user/userSlice";
 
 import SideBar from "../../components/Sidebar";
-
 import UserList from "../../components/UserList";
+import Conversation from "../../components/Conversation";
 
 const UsersPage = () => {
   const dispatch = useDispatch();
@@ -26,7 +26,7 @@ const UsersPage = () => {
         <SearchBar />
         <UserList props={usersList} />
       </div>
-      {/* <Conversation /> */}
+      <Conversation />
     </div>
   );
 };
