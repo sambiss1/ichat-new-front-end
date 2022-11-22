@@ -17,7 +17,7 @@ const UsersPage = () => {
     dispatch(getAllContacts());
   }, []);
 
-  const usersList = useSelector((state) => state.users);
+  const usersList = useSelector((state) => state.contactList);
 
   return (
     <div className="home__page--container">

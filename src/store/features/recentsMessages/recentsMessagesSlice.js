@@ -5,8 +5,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const userId = localStorage.getItem("userID");
-const token = localStorage.getItem("token");
+const userId = window.localStorage.getItem("userID");
+const token = window.localStorage.getItem("token");
 
 export const getAllRecentsMessages = createAsyncThunk(
   "recentsMessages/getAllRecentsMessages",

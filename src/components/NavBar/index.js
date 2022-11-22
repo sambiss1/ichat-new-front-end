@@ -14,8 +14,8 @@ const NavBar = () => {
     <nav className="nav__bar--container">
       <ul className="nav__bar--menu">
         <NavLink
-          to="/"
-          className={location.pathname === "/" ? isActiveLink : noActiveLink}
+          to="/home"
+          className={location.pathname === "/home" ? isActiveLink : noActiveLink}
         >
           <HiChat className="nav__bar--icon" />
         </NavLink>

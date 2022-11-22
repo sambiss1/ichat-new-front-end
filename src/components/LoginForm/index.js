@@ -2,15 +2,23 @@
 /* eslint-disable arrow-body-style */
 /* eslint-disable object-shorthand */
 import { useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import axios from "axios";
 import { socket } from "../../socket";
+import {
+  // getUser,
+  setUserInfo,
+  setAuth,
+} from "../../store/features/user/userSlice";
 import "./loginForm.css";
 
 const LoginForm = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
+  const dispatch = useDispatch();
   let userStatus = null;
 
   const loginFuntion = (event) => {
@@ -25,16 +33,20 @@ const LoginForm = () => {
       headers: { "Content-Type": "application/json" },
     })
       .then((response) => {
-        window.localStorage.setItem("token", response.data.token);
+        // Set info in localStorage
         window.localStorage.setItem("userID", response.data.payload.id);
-        window.localStorage.setItem("auth", true);
+        window.localStorage.setItem("token", response.data.token);
+        window.localStorage.setItem("auth", response.data.success);
+
+        // Set user info
+        dispatch(setUserInfo(response.data.payload));
+        dispatch(setAuth(response.data.success));
+
+        // Login on socket
         socket.emit("login", { username });
 
-        window.localStorage.getItem("auth");
-
-        navigate("/", { replace: true });
-
-        <Navigate replace to="/" />;
+        // Redirect to home page
+        navigate("/home", { replace: true });
 
         socket.on("online", () => {
           userStatus = true;
@@ -71,7 +83,7 @@ const LoginForm = () => {
           value="Sign In"
           className="login__form--submit__button"
         />
-      </p>{" "}
+      </p>
     </form>
   );
 };
