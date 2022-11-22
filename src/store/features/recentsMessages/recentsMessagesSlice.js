@@ -32,7 +32,7 @@ export const recentsMessagesSlice = createSlice({
     isLoading: false,
     error: null,
   },
-  reducer: {
+  reducers: {
     getMessages: (state, action) => {
       return state.data;
     },

@@ -2,6 +2,7 @@
 @import "../../styles/variables";
 @import "../../styles/__breakpoints";
 
+
 .discussion__main {
   &--container {
     height: 90vh;
@@ -9,8 +10,9 @@
     border-radius: 15px;
     position: relative;
     padding: 0 2em;
-    width: 90%;
+    width: 100%;
     @include display_flex__column;
+    margin: 0;
   }
 
   &--content {

@@ -5,32 +5,121 @@
 /* eslint-disable react/self-closing-comp */
 /* eslint-disable prefer-destructuring */
 /* eslint-disable prefer-const */
+/* eslint-disable no-unused-vars */
 
-import { useRef } from "react";
-import { useSelector } from "react-redux";
+import { useRef, useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { BiSend } from "react-icons/bi";
 import { BsCamera } from "react-icons/bs";
-// import axios from "axios";
-// import Popup from "reactjs-popup";
-import moment from "moment";
-// import {AdvancedImage} from "@cloudinary/react";
+import axios from "axios";
 
-// import {Cloudinary} from "@cloudinary/url-gen"
-// import "reactjs-popup/dist/index.css";
+import moment from "moment";
+
+import {
+  getAllMessages,
+  getAConversation,
+  getMessages,
+} from "../../store/features/conversations/conversationSlice";
+import { socket } from "../../socket";
+
+import {
+  sendMessage,
+  getNewMessages,
+  getNewMessageTest,
+} from "../../store/features/messages/messageSlice";
+
+import { getAllRecentsMessages } from "../../store/features/recentsMessages/recentsMessagesSlice";
+
 import "./conversations.css";
 
 const Conversation = () => {
+  const [message, setMessage] = useState({
+    text: "",
+    image: "",
+  });
   const messagesEndRef = useRef(null);
-
   const userId = localStorage.getItem("userID");
-  // const token = localStorage.getItem("token");
+  const token = localStorage.getItem("token");
+
+  const dispatch = useDispatch();
+
   const contactPerson = useSelector((state) => state.contactPerson);
 
   const selectedConversation = useSelector(
     (state) => state.conversation.selectedConversation
   );
+  const conversationId = useSelector((state) => state.conversation.id);
+
+  const thisContact = useSelector((state) => state.contactPerson._id);
+
+  const room = conversationId;
+
+  let userStatus = null;
+
+  const getConversationMessages = async () => {
+    await axios({
+      method: "GET",
+      url: `http://localhost:8000/api/conversations/${userId}/${thisContact}`,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `${token}`,
+      },
+    })
+      .then((response) => {
+        dispatch(getMessages(response.data.conversations[0].messages));
+      })
+      .catch((error) => {
+        return alert(error);
+      });
+  };
+
+  const sendNewMessage = (event) => {
+    event.preventDefault();
+
+    dispatch(
+      sendMessage({
+        conversationId,
+        sender: userId,
+        messageText: message.text,
+        messageImage: message.image,
+      })
+    );
+
+    socket.emit("send-message", {
+      conversationId,
+      sender: userId,
+      messageText: message.text,
+      messageImage: message.image,
+    });
+
+    getConversationMessages();
+    dispatch(getAllRecentsMessages());
+
+    event.target.reset();
+  };
+
+  const newMessage = useSelector((state) => state.messages.data);
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollTo(0, messagesEndRef.current.scrollHeight);
+  };
 
   const messages = useSelector((state) => state.conversation.messages);
+
+  useEffect(() => {
+    socket.on("online", () => {
+      userStatus = true;
+      console.log(userStatus);
+    });
+    getConversationMessages();
+
+    socket.on("receive-message", (content) => {
+      dispatch(getMessages(newMessage));
+    });
+
+    scrollToBottom();
+  }, [socket, messages, newMessage]);
+
+  const isSending = useSelector((state) => state.messages.isSending);
 
   return (
     <div className="discussion__main--container">
@@ -44,7 +133,7 @@ const Conversation = () => {
               <h3>
                 {contactPerson.firstName} {contactPerson.lastName}
               </h3>
-              <p>Online</p>
+              {userStatus ? <p>Online</p> : <p>Offline</p>}
             </div>
           </div>
 
@@ -57,7 +146,7 @@ const Conversation = () => {
                   return content.sender === userId ? (
                     <div className="from-me-container">
                       <div className="from-me" key={content._id}>
-                        {content.messageImage ? (
+                        {!content.messageImage ? (
                           <p></p>
                         ) : (
                           <img src={content.messageImage} alt="file sended" />
@@ -71,7 +160,7 @@ const Conversation = () => {
                   ) : (
                     <div className="from-them-container">
                       <div className="from-them" key={content._id}>
-                        {content.messageImage ? (
+                        {!content.messageImage ? (
                           <p></p>
                         ) : (
                           <img src={content.messageImage} alt="file sended" />
@@ -88,19 +177,16 @@ const Conversation = () => {
             )}
           </div>
 
-          <form
-            // onSubmit={ sendMessage }
-            className="send__message--form"
-          >
+          <form onSubmit={sendNewMessage} className="send__message--form">
             <div className="send__message--content">
               <input
                 type="text"
-                // onChange={(event) => {
-                //   return setMessage({
-                //     text: event.target.value,
-                //     image: message.image,
-                //   });
-                // }}
+                onChange={(event) => {
+                  return setMessage({
+                    text: event.target.value,
+                    image: message.image,
+                  });
+                }}
                 className="send__message--text"
                 placeholder="Type message here"
               />
@@ -119,15 +205,15 @@ const Conversation = () => {
               </div>
             </div>
             <button type="submit" className="send__message--button">
-              {/* {sendingMessage ? (
+              {isSending ? (
                 <div className="lds-ring">
                   <div></div>
                   <div></div>
                   <div></div>
                 </div>
-              ) : ( */}
-              <BiSend />
-              {/* )} */}
+              ) : (
+                <BiSend />
+              )}
             </button>
           </form>
         </div>

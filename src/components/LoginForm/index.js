@@ -2,14 +2,16 @@
 /* eslint-disable arrow-body-style */
 /* eslint-disable object-shorthand */
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { socket } from "../../socket";
 import "./loginForm.css";
 
 const LoginForm = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  let userStatus = null;
 
   const loginFuntion = (event) => {
     event.preventDefault();
@@ -23,11 +25,21 @@ const LoginForm = () => {
       headers: { "Content-Type": "application/json" },
     })
       .then((response) => {
-        navigate("/", { replace: true });
         window.localStorage.setItem("token", response.data.token);
         window.localStorage.setItem("userID", response.data.payload.id);
         window.localStorage.setItem("auth", true);
-        // socket.emit("login", { username });
+        socket.emit("login", { username });
+
+        window.localStorage.getItem("auth");
+
+        navigate("/", { replace: true });
+
+        <Navigate replace to="/" />;
+
+        socket.on("online", () => {
+          userStatus = true;
+          console.log(userStatus);
+        });
       })
       .catch((error) => console.error(error));
   };
