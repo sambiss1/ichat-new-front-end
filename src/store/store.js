@@ -3,8 +3,8 @@ import { recentsMessagesSlice } from "./features/recentsMessages/recentsMessages
 import { conversationSlice } from "./features/conversations/conversationSlice";
 import { contactPersonSlice } from "./features/contactPerson/contactPersonSlice";
 import { contactListSlice } from "./features/contactList/contactListSlice";
-
 import { messageSlice } from "./features/messages/messageSlice";
+import { userSlice } from "./features/user/userSlice";
 
 export const store = configureStore({
   reducer: {
@@ -13,6 +13,7 @@ export const store = configureStore({
     conversation: conversationSlice.reducer,
     messages: messageSlice.reducer,
     contactList: contactListSlice.reducer,
+    user: userSlice.reducer,
   },
 });
 
