@@ -32,7 +32,6 @@ const MessagesCard = ({ props }) => {
 
   const messages = useSelector((state) => state.conversation);
 
-  // console.log(messages);
 
   return (
     <div
