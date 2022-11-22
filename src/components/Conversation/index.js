@@ -52,6 +52,8 @@ const Conversation = () => {
 
   const room = conversationId;
 
+  let userStatus = null;
+
   const getConversationMessages = async () => {
     await axios({
       method: "GET",
@@ -101,6 +103,10 @@ const Conversation = () => {
   const messages = useSelector((state) => state.conversation.messages);
 
   useEffect(() => {
+    socket.on("online", () => {
+      userStatus = true;
+      console.log(userStatus);
+    });
     getConversationMessages();
 
     socket.on("receive-message", (content) => {
@@ -124,7 +130,7 @@ const Conversation = () => {
               <h3>
                 {contactPerson.firstName} {contactPerson.lastName}
               </h3>
-              <p>Online</p>
+              {userStatus ? <p>Online</p> : <p>Offline</p>}
             </div>
           </div>
 

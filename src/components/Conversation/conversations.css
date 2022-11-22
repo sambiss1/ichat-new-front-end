@@ -1,12 +1,13 @@
 .discussion__main--container {
-  height: 90vh;
+  height: 80vh;
   background-color: #ffffff;
   border-radius: 15px;
   position: relative;
   padding: 0 2em;
-  width: 90%;
+  width: 100%;
   display: flex;
   flex-direction: column;
+  margin: 0;
 }
 .discussion__main--content {
   height: 100%;
@@ -121,7 +122,7 @@ div.from-me::after {
   width: 10px;
 }
 
-div[class^="from-"] {
+div[class^=from-] {
   margin: 0.5rem 0;
   width: fit-content;
 }
@@ -165,12 +166,12 @@ div.from-them::after {
   width: 10px;
 }
 
-div[class^="from-"].emoji {
+div[class^=from-].emoji {
   background: none;
   font-size: 2.5rem;
 }
 
-div[class^="from-"].emoji::before {
+div[class^=from-].emoji::before {
   content: none;
 }
 
@@ -210,7 +211,7 @@ div[class^="from-"].emoji::before {
   color: #fff;
 }
 
-input[type="file"] {
+input[type=file] {
   display: none;
 }
 
@@ -239,13 +240,11 @@ input[type="file"] {
   word-break: break-all;
   height: auto;
 }
-.send__message--image,
-.send__message--file {
+.send__message--image, .send__message--file {
   right: 2%;
   font-size: 1.4em;
 }
-.send__message--image:hover,
-.send__message--file:hover {
+.send__message--image:hover, .send__message--file:hover {
   cursor: pointer;
 }
 .send__message--file__container {

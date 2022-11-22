@@ -12,7 +12,8 @@ const SideBar = () => {
       <div>
         <MdLogout
           onClick={() => {
-            localStorage.clear();
+            window.localStorage.clear();
+            window.location("/");
           }}
         />
       </div>

@@ -30,7 +30,7 @@ const App = () => {
     <Routes>
       {!actualToken && !auth ? (
         <>
-          <Route index path="/" element={<LoginPage />} />
+          <Route index element={<LoginPage />} />
           <Route
             path="/*"
             element={actualToken ? <NotFound /> : <Navigate replace to="/" />}

@@ -11,6 +11,7 @@ const LoginForm = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  let userStatus = null;
 
   const loginFuntion = (event) => {
     event.preventDefault();
@@ -24,11 +25,16 @@ const LoginForm = () => {
       headers: { "Content-Type": "application/json" },
     })
       .then((response) => {
-        navigate("/", { replace: true });
         window.localStorage.setItem("token", response.data.token);
         window.localStorage.setItem("userID", response.data.payload.id);
         window.localStorage.setItem("auth", true);
+        navigate("/", { replace: true });
         socket.emit("login", { username });
+
+          socket.on("online", () => {
+            userStatus = true;
+            console.log(userStatus);
+          });
       })
       .catch((error) => console.error(error));
   };
