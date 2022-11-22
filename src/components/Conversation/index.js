@@ -92,8 +92,10 @@ const Conversation = () => {
       messageImage: message.image,
     });
 
-    getConversationMessages();
-    dispatch(getAllRecentsMessages());
+    if (thisContact !== undefined) {
+      getConversationMessages();
+      dispatch(getAllRecentsMessages());
+    }
 
     event.target.reset();
   };
@@ -110,7 +112,11 @@ const Conversation = () => {
       userStatus = true;
       console.log(userStatus);
     });
-    getConversationMessages();
+
+    if (thisContact !== undefined) {
+      getConversationMessages();
+      dispatch(getAllRecentsMessages());
+    }
 
     socket.on("receive-message", (content) => {
       dispatch(getMessages(newMessage));
