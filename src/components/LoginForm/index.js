@@ -15,7 +15,7 @@ import "./loginForm.css";
 
 const LoginForm = () => {
   const navigate = useNavigate();
-  const [username, setUsername] = useState("");
+  const [userName, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const dispatch = useDispatch();
@@ -27,7 +27,7 @@ const LoginForm = () => {
       method: "POST",
       url: `http://localhost:8000/api/user/login`,
       data: {
-        username: username,
+        userName: userName,
         password: password,
       },
       headers: { "Content-Type": "application/json" },
@@ -43,7 +43,7 @@ const LoginForm = () => {
         dispatch(setAuth(response.data.success));
 
         // Login on socket
-        socket.emit("login", { username });
+        socket.emit("login", { userName });
 
         // Redirect to home page
         navigate("/home", { replace: true });
