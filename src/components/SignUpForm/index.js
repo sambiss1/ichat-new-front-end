@@ -7,8 +7,13 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { socket } from "../../socket";
 import "./signUpForm.css";
-import { setError } from "../../store/features/user/userSlice";
+import {
+  setError,
+  setUserInfo,
+  setAuth,
+} from "../../store/features/user/userSlice";
 
 const SignUpForm = () => {
   const navigate = useNavigate();
@@ -19,6 +24,10 @@ const SignUpForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [signupSuccess, setSignupSuccess] = useState({
+    message: "",
+    success: false,
+  });
 
   const signup = (event) => {
     event.preventDefault();
@@ -37,7 +46,18 @@ const SignUpForm = () => {
       })
         .then((response) => {
           window.localStorage.setItem("token", response.token);
-          navigate("/", { replace: true });
+
+          window.localStorage.setItem("userID", response.data.payload.id);
+          window.localStorage.setItem("token", response.data.token);
+          window.localStorage.setItem("auth", response.data.success);
+
+          dispatch(setUserInfo(response.data.payload));
+          dispatch(setAuth(response.data.success));
+
+          // Login on socket
+          socket.emit("login", { userName });
+
+          navigate("/home", { replace: true });
         })
         .catch((error) => dispatch(setError()));
     } else {
@@ -49,7 +69,6 @@ const SignUpForm = () => {
 
   const error = useSelector((state) => state.user.error);
 
-
   return (
     <form onSubmit={signup} className="signup__form--container">
       {error ? (
@@ -59,7 +78,10 @@ const SignUpForm = () => {
             correspondent
           </p>
         </div>
-      ) : null}
+      ) : (
+        <div>{signupSuccess.message}</div>
+      )}
+
       <p>
         <input
           type="text"
