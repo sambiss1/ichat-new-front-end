@@ -1,3 +1,6 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable arrow-body-style */
+
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
@@ -57,3 +60,17 @@ export const userSlice = createSlice({
 export const { getUsers } = userSlice.actions;
 
 export default userSlice;
+
+//  extraReducers: {
+//     [getAllUsers.pending]: (state, action) => {
+//       state.isLoading = true;
+//     },
+//     [getAllUsers.fulfilled]: (state, action) => {
+//       state.isLoading = false;
+//       state.data = action.payload;
+//     },
+//     [getAllUsers.rejected]: (state, action) => {
+//       state.isLoading = false;
+//       state.error = action.payload;
+//     },
+//   },

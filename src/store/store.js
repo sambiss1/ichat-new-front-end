@@ -1,11 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { recentsMessagesSlice } from "./features/recentsMessages/recentsMessagesSlice";
-// import { conversationSlice } from "./features/conversaions/conversationsSlice";
 import { conversationSlice } from "./features/conversations/conversationSlice";
-// import { contactPersonSlice } from "./features/contactPerson/contactPersonSlice";
-
 import { contactPersonSlice } from "./features/contactPerson/contactPersonSlice";
-// import { socketSlice } from "./features/socket/socketSlice";
+import {userSlice} from "./features/user/userSlice";
+
 import { messageSlice } from "./features/messages/messageSlice";
 
 export const store = configureStore({
@@ -14,8 +12,7 @@ export const store = configureStore({
     contactPerson: contactPersonSlice.reducer,
     conversation: conversationSlice.reducer,
     messages: messageSlice.reducer,
-
-    // socket: socketSlice.reducer,
+    users: userSlice.reducer
   },
 });
 
