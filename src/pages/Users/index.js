@@ -5,7 +5,7 @@ import SearchBar from "../../components/SearchBar";
 
 import { useSelector, useDispatch } from "react-redux";
 
-import { getAllUsers } from "../../store/features/user/userSlice";
+import { getAllContacts } from "../../store/features/contactList/contactListSlice";
 
 import SideBar from "../../components/Sidebar";
 import UserList from "../../components/UserList";
@@ -14,7 +14,7 @@ import Conversation from "../../components/Conversation";
 const UsersPage = () => {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getAllUsers());
+    dispatch(getAllContacts());
   }, []);
 
   const usersList = useSelector((state) => state.users);

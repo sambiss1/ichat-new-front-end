@@ -7,7 +7,7 @@ import axios from "axios";
 const userId = localStorage.getItem("userID");
 const token = localStorage.getItem("token");
 
-export const getAllUsers = createAsyncThunk("users/getAllUsers", async () => {
+export const getAllContacts = createAsyncThunk("contactList/getAllUsers", async () => {
   return axios({
     method: "GET",
     url: `http://localhost:8000/api/user/`,
@@ -21,34 +21,34 @@ export const getAllUsers = createAsyncThunk("users/getAllUsers", async () => {
     .catch((error) => error);
 });
 
-export const userSlice = createSlice({
-  name: "users",
+export const contactListSlice = createSlice({
+  name: "contactList",
   initialState: {
     data: [],
     isLoading: false,
     error: null,
   },
   reducers: {
-    getUsers: (state, action) => {
+    getContacts: (state, action) => {
       return state.data;
     },
   },
   extraReducers: (builder) => {
     builder
-      .addCase(getAllUsers.pending, (state, action) => {
+      .addCase(getAllContacts.pending, (state, action) => {
         return (state = {
           ...state,
           isLoading: true,
         });
       })
-      .addCase(getAllUsers.fulfilled, (state, action) => {
+      .addCase(getAllContacts.fulfilled, (state, action) => {
         return (state = {
           ...state,
           isLoading: false,
           data: action.payload,
         });
       })
-      .addCase(getAllUsers.rejected, (state, action) => {
+      .addCase(getAllContacts.rejected, (state, action) => {
         return (state = {
           isLoading: false,
           error: action.payload,
@@ -57,9 +57,9 @@ export const userSlice = createSlice({
   },
 });
 
-export const { getUsers } = userSlice.actions;
+export const { getContacts } = contactListSlice.actions;
 
-export default userSlice;
+export default contactListSlice;
 
 //  extraReducers: {
 //     [getAllUsers.pending]: (state, action) => {
